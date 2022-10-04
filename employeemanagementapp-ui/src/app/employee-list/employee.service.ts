@@ -8,12 +8,18 @@ import { Employee } from '../models/api-models/employee.model';
 })
 export class EmployeeService {
 
-  //setting the url to fetch employees
+  //setting the url to fetch to
   private baseUrl = 'https://localhost:44383';
 
   constructor(private httpClient: HttpClient) { }
 
-  getEmployees(): Observable<any> {
+  //GET /employees
+  getEmployees(): Observable<Employee[]> {
     return this.httpClient.get<Employee[]>(this.baseUrl + '/employees');
+  }
+
+  //GET /employee/:id
+  getEmployee(employeeId: string): Observable<Employee>{
+    return this.httpClient.get<Employee>(this.baseUrl + '/employees/' + employeeId);
   }
 }

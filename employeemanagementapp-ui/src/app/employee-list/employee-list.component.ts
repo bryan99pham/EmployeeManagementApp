@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../models/ui-models/employee.model';
 import { EmployeeService } from './employee.service';
-import {LiveAnnouncer} from '@angular/cdk/a11y'
+import {LiveAnnouncer} from '@angular/cdk/a11y';
 
 
 @Component({
@@ -19,7 +19,8 @@ export class EmployeeListComponent implements OnInit {
                                 'dateOfBirth',
                                 'email',
                                 'mobile',
-                                'department']
+                                'department',
+                                'edit'];
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
   @ViewChild(MatSort) matSort!: MatSort;
@@ -30,7 +31,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void {
     //Fetching employees
     this.employeeService.getEmployees()
-    .subscribe(
+      .subscribe(
       (employees: Employee[]) => {
         this.employees = employees;
         this.dataSource = new MatTableDataSource<Employee>(this.employees);

@@ -52,12 +52,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { EmployeeComponent } from './employee-list/employee/employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
