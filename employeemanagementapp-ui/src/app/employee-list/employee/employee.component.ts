@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Employee } from 'src/app/models/ui-models/employee.model';
 import { EmployeeService } from '../employee.service';
 
 @Component({
@@ -9,6 +10,25 @@ import { EmployeeService } from '../employee.service';
 })
 export class EmployeeComponent implements OnInit {
   employeeId: string | null | undefined;
+  employee: Employee = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+    mobile: 0,
+    departmentId: '',
+    profileImageURL: '',
+    department: {
+      departmentId: '',
+      departmentName: '',
+    },
+    address: {
+      id: '',
+      physicalAddress: '',
+      postalAddress: ''
+    }
+  }
 
   constructor(private readonly employeeService: EmployeeService,
     private readonly route: ActivatedRoute) { }
@@ -22,8 +42,8 @@ export class EmployeeComponent implements OnInit {
         if (this.employeeId) {
           this.employeeService.getEmployee(this.employeeId)
             .subscribe(
-              (success) => {
-                console.log(success);
+              (response) => {
+                this.employee = response;
               }
             );
         }

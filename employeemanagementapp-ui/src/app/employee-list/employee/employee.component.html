@@ -21,13 +21,13 @@
           <div class="col-xs-6">
             <mat-form-field appearance="outline">
               <mat-label>First Name</mat-label>
-              <input type="text" matInput>
+              <input type="text" matInput [(ngModel)]="employee.firstName" name="firstName">
             </mat-form-field>
           </div>
           <div class="col-xs-6">
             <mat-form-field appearance="outline">
               <mat-label>Last Name</mat-label>
-              <input type="text" matInput>
+              <input type="text" matInput [(ngModel)]="employee.lastName" name="lastName">
             </mat-form-field>
           </div>
         </div>
@@ -35,7 +35,7 @@
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Date of Birth</mat-label>
-              <input matInput [matDatepicker]="picker">
+              <input matInput [matDatepicker]="picker" [(ngModel)]="employee.dateOfBirth" name="dateOfBirth">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -45,13 +45,13 @@
           <div class="col-xs-6">
             <mat-form-field appearance="outline">
               <mat-label>Email</mat-label>
-              <input type="text" matInput>
+              <input type="text" matInput [(ngModel)]="employee.email" name="email">
             </mat-form-field>
           </div>
             <div class="col-xs-6">
               <mat-form-field appearance="outline">
                 <mat-label>Mobile</mat-label>
-                <input type="number" matInput>
+                <input type="number" matInput [(ngModel)]="employee.mobile" name="mobile">
               </mat-form-field>
           </div>
         </div>
@@ -59,15 +59,7 @@
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Department</mat-label>
-              <input type="text" matInput>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <mat-form-field appearance="outline">
-              <mat-label>Department</mat-label>
-              <input type="text" matInput>
+              <input type="text" matInput [(ngModel)]="employee.department.departmentName" name="department">
             </mat-form-field>
           </div>
         </div>
@@ -75,7 +67,7 @@
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Physical Address</mat-label>
-              <textarea matInput></textarea>
+              <textarea matInput [(ngModel)]="employee.address.physicalAddress" name="physicalAddress"></textarea>
             </mat-form-field>
           </div>
         </div>
@@ -83,7 +75,7 @@
           <div class="col-xs-12">
             <mat-form-field appearance="outline">
               <mat-label>Postal Address</mat-label>
-              <textarea matInput></textarea>
+              <textarea matInput [(ngModel)]="employee.address.postalAddress" name="postalAddress"></textarea>
             </mat-form-field>
           </div>
         </div>
