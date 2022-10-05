@@ -19,13 +19,12 @@ export class EmployeeService {
     return this.httpClient.get<Employee[]>(this.baseUrl + '/employees');
   }
 
-  //GET /employee/:id
+  //GET /employee/id
   getEmployee(employeeId: string): Observable<Employee>{
     return this.httpClient.get<Employee>(this.baseUrl + '/employees/' + employeeId);
   }
 
-  //POST
-
+  //PUT /employees/id
   updateEmployee(employeeId: string, employeeRequest: Employee): Observable<Employee> {
     const updateEmployeeRequest: UpdateEmployeeRequest = {
       firstName: employeeRequest.firstName,

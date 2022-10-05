@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Department } from 'src/app/models/ui-models/department.model';
 import { Employee } from 'src/app/models/ui-models/employee.model';
@@ -36,7 +37,8 @@ export class EmployeeComponent implements OnInit {
   constructor(
     private readonly employeeService: EmployeeService,
     private readonly route: ActivatedRoute,
-    private readonly departmentService: DepartmentService) { }
+    private readonly departmentService: DepartmentService,
+    private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -69,8 +71,9 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.updateEmployee(this.employee.id, this.employee)
       .subscribe(
         (response) => {
-          console.log(response);
-          //notify
+          this.snackbar.open('Employee has been successfully updated', undefined, {
+            duration: 5000
+          });
         }
       );
   }
