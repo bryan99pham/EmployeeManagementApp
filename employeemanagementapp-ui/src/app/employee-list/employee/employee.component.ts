@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Department } from 'src/app/models/ui-models/department.model';
 import { Employee } from 'src/app/models/ui-models/employee.model';
+import { DepartmentService } from 'src/app/services/department.service';
 import { EmployeeService } from '../employee.service';
 
 @Component({
@@ -29,9 +31,12 @@ export class EmployeeComponent implements OnInit {
       postalAddress: ''
     }
   }
+  departmentList: Department[] = [];
 
-  constructor(private readonly employeeService: EmployeeService,
-    private readonly route: ActivatedRoute) { }
+  constructor(
+    private readonly employeeService: EmployeeService,
+    private readonly route: ActivatedRoute,
+    private readonly departmentService: DepartmentService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -39,6 +44,7 @@ export class EmployeeComponent implements OnInit {
         //uses id from url in routing module
         this.employeeId = params.get('id');
 
+        //fetch a single employee
         if (this.employeeId) {
           this.employeeService.getEmployee(this.employeeId)
             .subscribe(
@@ -46,9 +52,27 @@ export class EmployeeComponent implements OnInit {
                 this.employee = response;
               }
             );
+          this.departmentService.getDepartmentList()
+            .subscribe(
+              (response) => {
+                this.departmentList = response;
+              }
+            )
         }
       }
     );
+  }
+
+  onUpdate(): void {
+    console.log(this.employee);
+    //calling method from employee service to update employee
+    this.employeeService.updateEmployee(this.employee.id, this.employee)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          //notify
+        }
+      );
   }
 
 }
