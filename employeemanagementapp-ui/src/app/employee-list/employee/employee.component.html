@@ -4,7 +4,15 @@
   </div>
 </div>
 
-<div class="row" *ngIf="isSingleView">
+<div class="container" *ngIf="isSingleView">
+  <div class="row top-row">
+    <div class="col-xs-12 row end-xs">
+      <a routerLink="/employees" color="primary" mat-raised-button>
+        <mat-icon>chevron_left</mat-icon>
+        Back
+      </a>
+    </div>
+  </div>
   <div class="col-xs-6">
     HELLO
   </div>

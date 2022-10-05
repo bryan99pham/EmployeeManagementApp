@@ -16,11 +16,6 @@ const routes: Routes = [
     path: 'employees/:id',
     component: EmployeeComponent
   }
-  // ,
-  // {
-  //   path: 'employee/view/:id',
-  //   component: EmployeeComponent
-  // }
 ];
 
 @NgModule({

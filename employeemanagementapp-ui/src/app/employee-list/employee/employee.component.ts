@@ -58,15 +58,17 @@ export class EmployeeComponent implements OnInit {
           if(this.employeeId.toLowerCase() === 'Add'.toLowerCase() && !this.isSingleView) {
             //add new employee screen
             this.isNewEmployee = true;
-            this.header = 'Add New Employee'
+            this.header = 'Add New Employee';
+
           } else if (this.employeeId.toLowerCase() === 'View'.toLowerCase() && !this.isNewEmployee) {
             this.isSingleView = true;
-            this.header = 'SINGLE VIEW'
+            this.header = 'SINGLE VIEW';
+
           } else {
             //editing employee screen
             this.isNewEmployee = false;
             this.isEdit = true;
-            this.header = 'Edit Employee'
+            this.header = 'Edit Employee';
             this.employeeService.getEmployee(this.employeeId)
             .subscribe(
               (response) => {
