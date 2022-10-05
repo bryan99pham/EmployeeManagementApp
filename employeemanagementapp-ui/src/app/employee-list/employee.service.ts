@@ -38,4 +38,9 @@ export class EmployeeService {
     }
     return this.httpClient.put<Employee>(this.baseUrl + '/employees/' + employeeId, updateEmployeeRequest);
   }
+
+  //DELETE /employees/id
+  deleteEmployee(employeeId: string): Observable<Employee> {
+    return this.httpClient.delete<Employee>(this.baseUrl + '/employees/' + employeeId);
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from 'src/app/models/ui-models/department.model';
 import { Employee } from 'src/app/models/ui-models/employee.model';
 import { DepartmentService } from 'src/app/services/department.service';
@@ -38,7 +38,8 @@ export class EmployeeComponent implements OnInit {
     private readonly employeeService: EmployeeService,
     private readonly route: ActivatedRoute,
     private readonly departmentService: DepartmentService,
-    private snackbar: MatSnackBar) { }
+    private snackbar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -66,7 +67,6 @@ export class EmployeeComponent implements OnInit {
   }
 
   onUpdate(): void {
-    console.log(this.employee);
     //calling method from employee service to update employee
     this.employeeService.updateEmployee(this.employee.id, this.employee)
       .subscribe(
@@ -76,6 +76,19 @@ export class EmployeeComponent implements OnInit {
           });
         }
       );
+  }
+
+  onDelete(): void {
+    //calling method from employee service to update employee
+    this.employeeService.deleteEmployee(this.employee.id)
+      .subscribe(
+        (response) => {
+          this.snackbar.open('Employee has been successfully deleted', undefined), {
+            duration: 5000
+          }
+        }
+      );
+      this.router.navigateByUrl('employees');
   }
 
 }
