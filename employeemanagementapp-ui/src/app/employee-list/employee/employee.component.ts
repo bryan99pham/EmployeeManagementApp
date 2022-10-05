@@ -33,6 +33,8 @@ export class EmployeeComponent implements OnInit {
     }
   }
   departmentList: Department[] = [];
+  isNewEmployee = false;
+  header = '';
 
   constructor(
     private readonly employeeService: EmployeeService,
@@ -49,6 +51,18 @@ export class EmployeeComponent implements OnInit {
 
         //fetch a single employee
         if (this.employeeId) {
+
+          //determine which screen to display depending on route
+          if(this.employeeId.toLowerCase() === 'Add'.toLocaleLowerCase()) {
+            //add new employee screen
+            this.isNewEmployee = true;
+            this.header = 'Add New Employee'
+          } else {
+            //editing employee screen
+            this.isNewEmployee = false;
+            this.header = 'Edit Employee'
+          }
+
           this.employeeService.getEmployee(this.employeeId)
             .subscribe(
               (response) => {
@@ -83,12 +97,26 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.deleteEmployee(this.employee.id)
       .subscribe(
         (response) => {
-          this.snackbar.open('Employee has been successfully deleted', undefined), {
+          this.snackbar.open('Employee has been successfully deleted', undefined, {
             duration: 5000
-          }
+          })
         }
       );
-      this.router.navigateByUrl('employees');
+    this.router.navigateByUrl('employees');
+  }
+
+  onAdd(): void {
+    this.employeeService.addEmployee(this.employee)
+      .subscribe(
+        (successResponse) => {
+          this.snackbar.open('Employee has been successfully added', undefined, {
+            duration: 5000
+          });
+
+        this.router.navigateByUrl(`employees`);
+
+        }
+      );
   }
 
 }
