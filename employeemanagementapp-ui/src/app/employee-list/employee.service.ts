@@ -10,7 +10,7 @@ import { UpdateEmployeeRequest } from '../models/api-models/update-employee-requ
 export class EmployeeService {
 
   //setting the url to fetch to
-  private baseUrl = 'https://localhost:44383';
+  private baseUrl = 'https://localhost:5001';
 
   constructor(private httpClient: HttpClient) { }
 
