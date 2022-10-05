@@ -34,6 +34,8 @@ export class EmployeeComponent implements OnInit {
   }
   departmentList: Department[] = [];
   isNewEmployee = false;
+  isSingleView = false;
+  isEdit = false;
   header = '';
 
   constructor(
@@ -53,22 +55,25 @@ export class EmployeeComponent implements OnInit {
         if (this.employeeId) {
 
           //determine which screen to display depending on route
-          if(this.employeeId.toLowerCase() === 'Add'.toLocaleLowerCase()) {
+          if(this.employeeId.toLowerCase() === 'Add'.toLowerCase() && !this.isSingleView) {
             //add new employee screen
             this.isNewEmployee = true;
             this.header = 'Add New Employee'
+          } else if (this.employeeId.toLowerCase() === 'View'.toLowerCase() && !this.isNewEmployee) {
+            this.isSingleView = true;
+            this.header = 'SINGLE VIEW'
           } else {
             //editing employee screen
             this.isNewEmployee = false;
+            this.isEdit = true;
             this.header = 'Edit Employee'
-          }
-
-          this.employeeService.getEmployee(this.employeeId)
+            this.employeeService.getEmployee(this.employeeId)
             .subscribe(
               (response) => {
                 this.employee = response;
               }
             );
+          }
           this.departmentService.getDepartmentList()
             .subscribe(
               (response) => {
