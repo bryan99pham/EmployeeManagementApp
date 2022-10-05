@@ -90,6 +90,7 @@ export class EmployeeComponent implements OnInit {
           });
         }
       );
+      this.router.navigateByUrl('employees');
   }
 
   onDelete(): void {

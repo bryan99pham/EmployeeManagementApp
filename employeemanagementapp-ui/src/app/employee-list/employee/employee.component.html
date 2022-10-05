@@ -6,6 +6,16 @@
 
 <div class="container">
   <div class="row top-row">
+    <div class="col-xs-12">
+      
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="false">
+
+</div>
+  <div class="row top-row">
     <div class="col-xs-12 row end-xs">
       <a routerLink="/employees" color="primary" mat-raised-button>
         <mat-icon>chevron_left</mat-icon>
@@ -61,7 +71,7 @@
               <mat-label>Department</mat-label>
               <mat-select [(ngModel)]="employee.departmentId" name="department">
                 <mat-option *ngFor="let department of departmentList" [value]="department.departmentId">
-                  {{ department.departmentName}}
+                  {{ department.departmentName }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -100,4 +110,4 @@
 
     </div>
   </div>
-</div>
+<!-- </div> -->
