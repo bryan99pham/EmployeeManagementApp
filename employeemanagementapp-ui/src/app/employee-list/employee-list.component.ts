@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../models/ui-models/employee.model';
 import { EmployeeService } from './employee.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-employee-list',
@@ -25,7 +26,9 @@ export class EmployeeListComponent implements OnInit {
   filterString = "";
 
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, private titleService:Title) {
+    this.titleService.setTitle("Employee Management App")
+  }
 
   ngOnInit(): void {
     //Fetching employees

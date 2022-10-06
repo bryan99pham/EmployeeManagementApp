@@ -5,7 +5,7 @@ import { Department } from 'src/app/models/ui-models/department.model';
 import { Employee } from 'src/app/models/ui-models/employee.model';
 import { DepartmentService } from 'src/app/services/department.service';
 import { EmployeeService } from '../employee.service';
-import { Subject, Subscriber, Subscription } from 'rxjs';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-employee',
@@ -39,13 +39,15 @@ export class EmployeeComponent implements OnInit {
   isSingleView = false;
   isEdit = false;
   header = '';
+  imageUrl = '';
 
   constructor(
     private readonly employeeService: EmployeeService,
     private readonly route: ActivatedRoute,
     private readonly departmentService: DepartmentService,
     private snackbar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private titleService:Title) { }
 
   ngOnInit(): void {
     let routePath =''
@@ -55,7 +57,6 @@ export class EmployeeComponent implements OnInit {
     this.route.paramMap.subscribe(
       (params) => {
         this.employeeId = params.get('id');
-
         //fetch a single employee
         if (this.employeeId) {
           //determine which screen to display depending on route
@@ -63,6 +64,8 @@ export class EmployeeComponent implements OnInit {
             //add new employee screen
             this.isNewEmployee = true;
             this.header = 'Add New Employee';
+            this.titleService.setTitle("Add New Employee");
+            this.setImage();
           } else if (routePath === 'View'.toLowerCase() && !this.isNewEmployee) {
             this.isSingleView = true;
             this.header = 'SINGLE VIEW';
@@ -70,12 +73,12 @@ export class EmployeeComponent implements OnInit {
             .subscribe(
               (response) => {
                 this.employee = response;
+                this.titleService.setTitle("View - " + this.employee.firstName + " " + this.employee.lastName);
               }
             )
           }
           else {
             //editing employee screen
-
             this.isNewEmployee = false;
             this.isEdit = true;
             this.header = 'Edit Employee';
@@ -83,6 +86,7 @@ export class EmployeeComponent implements OnInit {
             .subscribe(
               (response) => {
                 this.employee = response;
+                this.titleService.setTitle("Edit - " + this.employee.firstName + " " + this.employee.lastName);
               }
             );
           }
@@ -90,7 +94,8 @@ export class EmployeeComponent implements OnInit {
             .subscribe(
               (response) => {
                 this.departmentList = response;
-              }
+                this.setImage();
+              },
             )
         }
       }
@@ -102,7 +107,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.updateEmployee(this.employee.id, this.employee)
       .subscribe(
         (response) => {
-          this.snackbar.open('Employee has been successfully updated', undefined, {
+          this.snackbar.open('Employee successfully updated', undefined, {
             duration: 5000
           });
         }
@@ -115,7 +120,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.deleteEmployee(this.employee.id)
       .subscribe(
         (response) => {
-          this.snackbar.open('Employee has been successfully deleted', undefined, {
+          this.snackbar.open('Employee successfully deleted', undefined, {
             duration: 5000
           })
         }
@@ -127,7 +132,7 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.addEmployee(this.employee)
       .subscribe(
         (successResponse) => {
-          this.snackbar.open('Employee has been successfully added', undefined, {
+          this.snackbar.open('Employee successfully added', undefined, {
             duration: 5000
           });
 
@@ -135,6 +140,33 @@ export class EmployeeComponent implements OnInit {
 
         }
       );
+  }
+
+  uploadImage(event: any): void {
+    if(this.employeeId) {
+      const file: File = event.target.files[0];
+      this.employeeService.uploadImage(this.employee.id, file)
+        .subscribe(
+          (response) => {
+            this.employee.profileImageURL = response;
+            this.setImage();
+
+            this.snackbar.open('Profile image successfully updated', undefined, {
+              duration: 5000
+            });
+          }
+        );
+    }
+  }
+
+  private setImage(): void {
+    if (this.employee.profileImageURL) {
+      //fetch image by url to display on screen
+      this.imageUrl = this.employeeService.getImagePath(this.employee.profileImageURL);
+    } else {
+      //display default image
+      this.imageUrl = '/assets/defaultImage.png';
+    }
   }
 
 }

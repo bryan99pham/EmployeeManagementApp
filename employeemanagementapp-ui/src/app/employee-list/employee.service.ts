@@ -10,7 +10,7 @@ import { UpdateEmployeeRequest } from '../models/api-models/update-employee-requ
 })
 export class EmployeeService {
 
-  //setting the url to fetch to
+  //setting the url to fetch from api
   private baseUrl = 'https://localhost:44383';
 
   constructor(private httpClient: HttpClient) { }
@@ -64,5 +64,21 @@ export class EmployeeService {
     };
 
     return this.httpClient.post<Employee>(this.baseUrl + '/employees/add', addEmployeeRequest);
+  }
+
+  //POST /employees/:id/upload-image
+  uploadImage(employeeId: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append("profileImage", file);
+
+    return this.httpClient.post(this.baseUrl + '/employees/' + employeeId + '/upload-image',
+      formData, {
+        responseType: 'text'
+      }
+    );
+  }
+
+  getImagePath(relativePath: string) {
+    return `${this.baseUrl}/${relativePath}`;
   }
 }
