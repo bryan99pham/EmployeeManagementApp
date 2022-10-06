@@ -4,10 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../models/ui-models/employee.model';
 import { EmployeeService } from './employee.service';
-import { Observable } from 'rxjs';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { FormControl } from '@angular/forms';
-
 
 @Component({
   selector: 'app-employee-list',
@@ -27,8 +23,7 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
   @ViewChild(MatSort) matSort!: MatSort;
   filterString = "";
-  control = new FormControl('');
-  //filteredEmployees: Observable<Employee[]>;
+
 
   constructor(private employeeService: EmployeeService) { }
 
@@ -47,8 +42,6 @@ export class EmployeeListComponent implements OnInit {
           this.dataSource.sort = this.matSort;
       }
     );
-
-    //this.filteredEmployees
   }
 
   filterEmployees() {

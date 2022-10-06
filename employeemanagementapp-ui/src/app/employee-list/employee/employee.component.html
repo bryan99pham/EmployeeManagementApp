@@ -13,8 +13,17 @@
       </a>
     </div>
   </div>
-  <div class="col-xs-6">
-    HELLO
+  <div>
+    <form #employeeInfoForm="ngForm">
+      <div class="row">
+        <div class="col-xs-6">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput [(ngModel)]="employee.firstName" name="firstName">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 

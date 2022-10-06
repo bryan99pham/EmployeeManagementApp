@@ -20,9 +20,14 @@ export class EmployeeService {
     return this.httpClient.get<Employee[]>(this.baseUrl + '/employees');
   }
 
-  //GET /employee/id
+  //GET /employeea/id
   getEmployee(employeeId: string): Observable<Employee>{
     return this.httpClient.get<Employee>(this.baseUrl + '/employees/' + employeeId);
+  }
+
+  //GET /employees
+  getSingleEmployee(employeeId: string): Observable<Employee>{
+    return this.httpClient.get<Employee>(this.baseUrl + '/employees/' + 'view/' + employeeId);
   }
 
   //PUT /employees/id
@@ -45,6 +50,7 @@ export class EmployeeService {
     return this.httpClient.delete<Employee>(this.baseUrl + '/employees/' + employeeId);
   }
 
+  //POST /employees/add
   addEmployee(employeeRequest: Employee): Observable<Employee> {
     const addEmployeeRequest: AddEmployeeRequest = {
       firstName: employeeRequest.firstName,
