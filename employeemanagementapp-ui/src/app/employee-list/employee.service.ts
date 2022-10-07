@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AddEmployeeRequest } from '../models/api-models/add-employee-request.model';
 import { Employee } from '../models/api-models/employee.model';
 import { UpdateEmployeeRequest } from '../models/api-models/update-employee-request.model';
@@ -11,7 +12,7 @@ import { UpdateEmployeeRequest } from '../models/api-models/update-employee-requ
 export class EmployeeService {
 
   //setting the url to fetch from api
-  private baseUrl = 'https://localhost:44383';
+  private baseUrl = environment.baseUrl;
 
   constructor(private httpClient: HttpClient) { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { Department } from 'src/app/models/ui-models/department.model';
@@ -6,14 +6,14 @@ import { Employee } from 'src/app/models/ui-models/employee.model';
 import { DepartmentService } from 'src/app/services/department.service';
 import { EmployeeService } from '../employee.service';
 import {Title} from "@angular/platform-browser";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit {
-
+export class EmployeeComponent implements OnInit{
   employeeId: string | null | undefined;
   employee: Employee = {
     id: '',
@@ -40,6 +40,10 @@ export class EmployeeComponent implements OnInit {
   isEdit = false;
   header = '';
   imageUrl = '';
+  mobileText = '';
+  isValid = false;
+
+  @ViewChild('employeeInfoForm') employeeInfoForm?: NgForm;
 
   constructor(
     private readonly employeeService: EmployeeService,
@@ -66,6 +70,7 @@ export class EmployeeComponent implements OnInit {
             this.header = 'Add New Employee';
             this.titleService.setTitle("Add New Employee");
             this.setImage();
+
           } else if (routePath === 'View'.toLowerCase() && !this.isNewEmployee) {
             this.isSingleView = true;
             this.header = 'SINGLE VIEW';
@@ -104,7 +109,8 @@ export class EmployeeComponent implements OnInit {
 
   onUpdate(): void {
     //calling method from employee service to update employee
-    this.employeeService.updateEmployee(this.employee.id, this.employee)
+    if (this.employeeInfoForm?.form.valid) {
+      this.employeeService.updateEmployee(this.employee.id, this.employee)
       .subscribe(
         (response) => {
           this.snackbar.open('Employee successfully updated', undefined, {
@@ -112,7 +118,10 @@ export class EmployeeComponent implements OnInit {
           });
         }
       );
-      this.router.navigateByUrl('employees');
+      setTimeout(() => {
+        this.router.navigateByUrl('employees');
+      }, 1000);
+    }
   }
 
   onDelete(): void {
@@ -125,21 +134,24 @@ export class EmployeeComponent implements OnInit {
           })
         }
       );
-    this.router.navigateByUrl('employees');
+      setTimeout(() => {
+        this.router.navigateByUrl('employees');
+      }, 1000);
   }
 
   onAdd(): void {
-    this.employeeService.addEmployee(this.employee)
-      .subscribe(
-        (successResponse) => {
-          this.snackbar.open('Employee successfully added', undefined, {
-            duration: 5000
-          });
-
-        this.router.navigateByUrl(`employees`);
-
-        }
-      );
+    if (this.employeeInfoForm?.form.valid) {
+      this.employee.mobile = Number(this.mobileText);
+      this.employeeService.addEmployee(this.employee)
+        .subscribe(
+          (response) => {
+            this.snackbar.open('Employee successfully added', undefined, {
+              duration: 5000
+            });
+          this.router.navigateByUrl(`employees`);
+          }
+        );
+    }
   }
 
   uploadImage(event: any): void {
