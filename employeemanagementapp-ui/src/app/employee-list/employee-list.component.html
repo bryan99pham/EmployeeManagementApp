@@ -20,7 +20,7 @@
       <ng-container matColumnDef="firstName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
         <td mat-cell *matCellDef="let element">
-          <a [routerLink]="['/employees/view', element.id]">
+          <a [routerLink]="['/employees/view', element.id]" (click)="visited = true" (class)="{'visitedColor': visited == true}">
             {{element.firstName}}
           </a>
         </td>

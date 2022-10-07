@@ -24,6 +24,7 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
   @ViewChild(MatSort) matSort!: MatSort;
   filterString = "";
+  visited=false;
 
 
   constructor(private employeeService: EmployeeService, private titleService:Title) {

@@ -79,6 +79,7 @@ export class EmployeeComponent implements OnInit{
               (response) => {
                 this.employee = response;
                 this.titleService.setTitle("View - " + this.employee.firstName + " " + this.employee.lastName);
+                this.setImage();
               }
             )
           }
