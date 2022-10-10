@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../models/ui-models/employee.model';
 import { EmployeeService } from './employee.service';
 import {Title} from "@angular/platform-browser";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-employee-list',
@@ -26,7 +27,11 @@ export class EmployeeListComponent implements OnInit {
   filterString = "";
   isNotAuthorized = true;
   isAuthorized = false;
+  email = '';
+  password = '';
   //@Output() authorizeStart = new EventEmitter<boolean>();
+
+  @ViewChild('loginForm') loginForm?: NgForm;
 
   constructor(private employeeService: EmployeeService, private titleService:Title) {
     this.titleService.setTitle("Employee Management App")
@@ -55,6 +60,7 @@ export class EmployeeListComponent implements OnInit {
 
   onAuthorize() {
     this.isAuthorized = true;
+    this.isNotAuthorized = false;
     //this.authorizeStart.emit(this.authorized);
   }
 
