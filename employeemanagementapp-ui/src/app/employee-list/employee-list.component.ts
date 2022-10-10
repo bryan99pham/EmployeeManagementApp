@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,8 +24,9 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
   @ViewChild(MatSort) matSort!: MatSort;
   filterString = "";
-  visited=false;
-
+  isNotAuthorized = true;
+  isAuthorized = false;
+  //@Output() authorizeStart = new EventEmitter<boolean>();
 
   constructor(private employeeService: EmployeeService, private titleService:Title) {
     this.titleService.setTitle("Employee Management App")
@@ -50,6 +51,11 @@ export class EmployeeListComponent implements OnInit {
 
   filterEmployees() {
     this.dataSource.filter = this.filterString.trim().toLowerCase();
+  }
+
+  onAuthorize() {
+    this.isAuthorized = true;
+    //this.authorizeStart.emit(this.authorized);
   }
 
 }
