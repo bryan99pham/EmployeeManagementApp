@@ -27,6 +27,7 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild(MatSort) matSort!: MatSort;
   filterString = "";
   isNotAuthorized = true;
+  newUser = true;
   isAuthorized = false;
   hide = true;
   loginEmail = '';
@@ -63,11 +64,14 @@ export class EmployeeListComponent implements OnInit {
   }
 
   onAuthorize() {
-    //this.isAuthorized = true;
+    this.newUser = false;
     this.isNotAuthorized = false;
-    //this.authorizeStart.emit(this.authorized);
+    console.log("isAuthorized: " + this.isAuthorized);
+    console.log("isNotAuthorized: " + this.isNotAuthorized);
+
   }
   onLogin(){
+    this.newUser = true;
     this.isAuthorized = true;
     this.isNotAuthorized = true;
     this.snackbar.open('You are now logged in.', undefined, {
