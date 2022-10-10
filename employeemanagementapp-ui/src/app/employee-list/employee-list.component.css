@@ -28,6 +28,30 @@ a {
 form {
   margin:auto;
   padding-left: 40%;
-  padding-top: 10%;
+  padding-top: 2%;
+}
+/* img{
+  height:auto;
+  width: 300px;
+  margin:auto;
+  padding-left: 40%;
+  padding-top:4%;
+  margin: 0;
+} */
+.image-container{
+  width: 200px;
+  height: 200px;
+  background-color: #F7f7f7;
+  border: 2px solid #CCC;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-left:  41.5%;
+  margin-top: 4%;
+}
+.image-container img {
+  width: 300px;
 }
 
