@@ -5,7 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../models/ui-models/employee.model';
 import { EmployeeService } from './employee.service';
 import {Title} from "@angular/platform-browser";
-
+import {FormControl, Validators} from '@angular/forms';
+import {NgForm} from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
@@ -26,11 +28,18 @@ export class EmployeeListComponent implements OnInit {
   filterString = "";
   isNotAuthorized = true;
   isAuthorized = false;
+  hide = true;
+  loginEmail = '';
+  loginPassword ='';
   //@Output() authorizeStart = new EventEmitter<boolean>();
 
-  constructor(private employeeService: EmployeeService, private titleService:Title) {
+  constructor(private employeeService: EmployeeService, private titleService:Title,
+    private snackbar: MatSnackBar) {
     this.titleService.setTitle("Employee Management App")
   }
+
+  @ViewChild('loginForm') loginForm?: NgForm;
+
 
   ngOnInit(): void {
     //Fetching employees
@@ -54,8 +63,21 @@ export class EmployeeListComponent implements OnInit {
   }
 
   onAuthorize() {
-    this.isAuthorized = true;
+    //this.isAuthorized = true;
+    this.isNotAuthorized = false;
     //this.authorizeStart.emit(this.authorized);
   }
+  onLogin(){
+    this.isAuthorized = true;
+    this.isNotAuthorized = true;
+    this.snackbar.open('You are now logged in.', undefined, {
+      duration: 2000
+    });
+  }
+
+  isValid(){
+    return this.loginForm?.form.valid
+  }
+
 
 }

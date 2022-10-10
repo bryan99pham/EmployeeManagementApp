@@ -22,4 +22,12 @@ a {
   color: black;
   text-decoration: none;
 }
+#emailContainer{
+  width: 100%;
+}
+form {
+  margin:auto;
+  padding-left: 40%;
+  padding-top: 10%;
+}
 
