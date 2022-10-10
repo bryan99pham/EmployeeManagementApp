@@ -30,7 +30,9 @@ export class EmployeeListComponent implements OnInit {
   isAuthorized = false;
   hide = true;
   loginEmail = '';
-  loginPassword ='';
+  loginPassword = '';
+  newUser = true;
+  currentAuthorization = false;
   //@Output() authorizeStart = new EventEmitter<boolean>();
 
   constructor(private employeeService: EmployeeService, private titleService:Title,
@@ -65,9 +67,12 @@ export class EmployeeListComponent implements OnInit {
   onAuthorize() {
     //this.isAuthorized = true;
     this.isNotAuthorized = false;
+    this.newUser = false;
+    this.currentAuthorization = true;
     //this.authorizeStart.emit(this.authorized);
   }
   onLogin(){
+    this.newUser = true;
     this.isAuthorized = true;
     this.isNotAuthorized = true;
     this.snackbar.open('You are now logged in.', undefined, {
